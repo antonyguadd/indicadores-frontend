@@ -41,6 +41,7 @@ export default function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
+    console.log(values)
 
     try {
       await new Promise(resolve => setTimeout(resolve, 1000))
@@ -50,9 +51,13 @@ export default function LoginForm() {
         description: "Bienvenido de vuelta!",
       })
     } catch (error) {
+      let errorMessage = "Ocurrió un error inesperado"
+      if (error instanceof Error) {
+        errorMessage = error.message
+      }
       toast({
         title: "Error de inicio de sesión",
-        description: "Correo electrónico o contraseña incorrectos.",
+        description: errorMessage,
         variant: "destructive",
       })
     } finally {
