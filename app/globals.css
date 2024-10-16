@@ -4,12 +4,8 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  background: url('/background-image.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 @layer base {
@@ -69,9 +65,6 @@ body {
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
