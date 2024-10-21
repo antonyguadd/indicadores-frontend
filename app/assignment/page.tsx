@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Importa usePathname
-import { LayoutDashboard, FileText, Users, Settings, Menu, Bell, User, ChevronLeft, ChevronRight, Upload, FilePlus, Sun, Moon } from "lucide-react";
+import { LayoutDashboard, FileText, Settings, Menu, Bell, User, ChevronLeft, ChevronRight, Upload, FilePlus, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
