@@ -89,6 +89,7 @@ export default function Dashboard() {
     formData.append('file_path', filePath);
 
     try {
+      console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/upload_and_generate/`, {
         method: 'POST',
         body: formData,
