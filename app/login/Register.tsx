@@ -34,10 +34,10 @@ export default function RegisterForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
     setErrorMessage(null); // Reset error message
-    console.log(values)
+    
 
     try {
-      console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+      
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/register/`, {
         method: 'POST',
         headers: {

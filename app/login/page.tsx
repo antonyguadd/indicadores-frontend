@@ -32,10 +32,10 @@ export default function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
-    console.log(values)
+    
 
     try {
-      console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+      
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/token/`, {
         method: 'POST',
         headers: {

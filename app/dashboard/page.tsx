@@ -70,7 +70,7 @@ export default function Dashboard() {
       }
 
       const data = await response.json();
-      console.log("Archivo subido:", data);
+      
       setFilePath(data.file_path); // Guardar la ruta del archivo subido
       setLineCount(data.line_count); // Guardar el número de líneas
     } catch (error) {
@@ -89,7 +89,7 @@ export default function Dashboard() {
     formData.append('file_path', filePath);
 
     try {
-      console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+      
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/upload_and_generate/`, {
         method: 'POST',
         body: formData,
@@ -100,7 +100,7 @@ export default function Dashboard() {
       }
 
       const data = await response.json();
-      console.log("Archivo generado:", data);
+      
       window.location.href = data.download_url; // Redirigir a la URL de descarga
     } catch (error) {
       console.error("Error al generar el archivo:", error);
