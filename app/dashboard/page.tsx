@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // Importa usePathname
 import { LayoutDashboard, FileText, Users, Settings, Menu, Bell, User, ChevronLeft, ChevronRight, Upload, FilePlus, Sun, Moon } from "lucide-react";
-
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,12 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
+import { useDarkMode } from "@/hooks/useDarkMode"; // Importa el hook
 
 const navItems = [
-  { icon: LayoutDashboard, label: "dia,semana,mes,año", href: "#" },
-  { icon: FileText, label: "Documentos", href: "#" },
-  { icon: Users, label: "Usuarios", href: "#" },
+  { icon: LayoutDashboard, label: "día,semana, mes, año", href: "/dashboard" },
+  { icon: FileText, label: "Asignaciones y Cierre de Órdenes", href: "/assignment" },
+  
   { icon: Settings, label: "Configuración", href: "#" },
 ];
 
@@ -30,15 +29,8 @@ export default function Dashboard() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
   const [lineCount, setLineCount] = useState<number | null>(null);
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+  const [darkMode, toggleDarkMode] = useDarkMode(); // Usa el hook
+  const pathname = usePathname(); // Usa usePathname
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -124,7 +116,7 @@ export default function Dashboard() {
         </div>
         <nav className="mt-8">
           {navItems.map((item, index) => (
-            <Link key={index} href={item.href} className="flex items-center px-6 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <Link key={index} href={item.href} className={`flex items-center px-6 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${pathname === item.href ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
               <item.icon className="w-5 h-5 mr-3" />
               <span className={`${sidebarOpen ? "block" : "hidden"}`}>{item.label}</span>
             </Link>
@@ -139,7 +131,7 @@ export default function Dashboard() {
             <Menu className="w-6 h-6 dark:text-white" />
           </Button>
           <div className="flex items-center">
-            <Button variant="ghost" size="icon" onClick={() => setDarkMode(!darkMode)}>
+            <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
               {darkMode ? <Sun className="w-5 h-5 dark:text-white" /> : <Moon className="w-5 h-5" />}
             </Button>
             <Button variant="ghost" size="icon">
@@ -149,14 +141,13 @@ export default function Dashboard() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="ml-2">
                   <User className="w-5 h-5 mr-2 dark:text-white" />
-                  <span className="dark:text-white">Antonio Flores</span>
+                  <span className="dark:text-white"></span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Perfil</DropdownMenuItem>
-                <DropdownMenuItem>Configuración</DropdownMenuItem>
+                
                 <DropdownMenuItem>Cerrar Sesión</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
